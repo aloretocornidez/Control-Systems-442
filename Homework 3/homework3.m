@@ -6,20 +6,8 @@ Assignemnent: Homework 3
 
 %}
 
-pkg load control;
-pkg load signal;
 
-clc
-
-num = [ 3600 ]
-den = [ 1 84.853 3600 ]
-sampleTime = 0.0035
-frequency = 1 / sampleTime
-
-
-g = tf(num, den)
-
-
+%{
 
 z = c2d(g, sampleTime)
 
@@ -30,6 +18,26 @@ digitalPoles = pole(z)
 analogZeros = zero(g)
 digitalZero = zero(z)
 
+%}
+
+
+
+A = [0, 1; -175, -5/2];
+B = [0; 80];
+C = [1, 0];
+D = [0];
+
+Ts = 0.003;
+
+Csys = ss(A, B, C, D);
+
+Dsys = c2d(Csys, Ts)
+
+
+%Testing Analytical Solution
+s = sym(s);
+sI = s*eye(2);
+phi = inv(sI - A);
 
 
 
