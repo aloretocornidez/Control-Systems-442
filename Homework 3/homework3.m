@@ -1,22 +1,31 @@
 %{
+Name: Alan Manuel Loreo Cornídex
+Date: February 16, 2022
+Assignment: Homework 3
+%}
 
-Name: Alan Manuel Loreto Cornídez
-Date: March 2nd, 2022
-Assignemnent: Homework 3
+
+
+%{
+num = [3600];
+den = [1 84.853 3600];
+time = 0.0035;
+
+g_s = tf(num, den)
+
+
+g_z = c2d(g_s, time, 'matched')
 
 %}
 
 
 %{
 
-z = c2d(g, sampleTime)
-
-analogPoles = pole(g)
-digitalPoles = pole(z)
+Csys = ss(A, B, C, D);
 
 
-analogZeros = zero(g)
-digitalZero = zero(z)
+Dsys = c2d(Csys, Ts)
+
 
 %}
 
@@ -39,6 +48,8 @@ s = sym(s);
 sI = s*eye(2);
 phi = inv(sI - A);
 
+ContEValues = eig(Csys.a)
 
+DiscreteEValues = eig(Dsys.a)
 
 
